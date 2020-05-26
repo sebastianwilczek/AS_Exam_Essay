@@ -1,0 +1,34 @@
+\section{Current State}
+\label{sec:state}
+
+As mentioned in \textit{\ref{sec:history}, \nameref{sec:history}}, \ac{BLE} had a slight evolution in the way pairing is established. The original specification as well as specification 4.1 make use of a custom key exchange. In all forms of pairing, a \ac{TK} is exchanged, which, in turn, is used to create a \ac{STK}. The \ac{STK} is then used to encrypt further communication between the paired devices.
+
+The pairing process is divided into three phases. In the first phase, both devices exchange their technical capabilities, after the device that would like to establish pairing sends a \texttt{Pairing\_Request}. This includes all forms of authentication requirements. Given this, it can be seen that the security of \ac{BLE} is dependent on its weakest link. If one device is only capable of establishing weaker security, both devices agree on the terms of this device, instead of discarding and rejecting the potentially insecure connection. Everything sent in this phase is transmitted unencrypted.
+
+Phase two contains the creation and transmission of the \ac{TK}. The key is transmitted using one of the methods detailed below. Once both devices have a \ac{TK}, they transmit random values to be confirmed using the key. This is done to ensure that both devices operate using the same key. Once this is established, both devices generate the \ac{STK} to be used in later communications.
+
+The last phase is optional. If in phase one specific bonding requirements were exchanged, they are fulfilled in this phase by exchanging more keys.
+
+As previously mentioned, specification 4.2 slightly changed the pairing process. Specifically, this change concerns phase two. Instead of two different keys, the \textit{LE Secure Connection} uses one \ac{LTK}. This key is established by having the devices generate public/private key pairs using Elliptic Curve Diffie Hellman cryptography. The pairing method is, in this case, used for authentication, with the \ac{LTK} being generated from Diffie Hellman alone.
+
+The pairing methods vary in their interactivity with the user. The \textit{Just Works} method makes use of a \ac{TK} that is 0. This makes eavesdropping on transmissions trivial. In specification 4.2, this method makes use of nonces, making eavesdropping less trivial. However, a MITM attack is still possible due to the lack of authentication.
+
+In the \textit{Out of Band} pairing method, keys are exchanged using a different channel of technology, for example by connecting the two devices using \ac{NFC}. This way, even large keys can be exchanged. The security of this is therefore dependent on the exchanging technology.
+
+\textit{Passkey Entry} requires the user to input a pin code displayed by one device into the other device. This pin is used as the \ac{TK} or used in combination with a nonce and public keys in the later specification. In Legacy Pairing, this pin can be eavesdropped if the initial connection is observed.
+
+The later specification introduces \textit{Numeric Comparison}. Both devices generate the same number from the public keys and transmitted nonces. If the user confirms the equivalence of the numbers, both devices can assume to be authenticated towards each other. \cite{digikey}
+
+As can be seen, \ac{BLE} makes the attempt to secure communications amongst devices. However, especially for Legacy connections, these pairing processes are highly susceptible to eavesdropping and MITM attacks.
+
+iBeacons, in turn, are not influenced by the security challenges of \ac{BLE}. They never establish a pairing to another device. However, iBeacons have their own set of security and privacy challenges.
+
+As previously mentioned, each iBeacon acts as an advertiser for a UUID. This UUID consists of an ID, for example a manufacturer or owner, as well as a mayor and a minor number, for example a store and a department identifier. This information is always public.
+
+Due to the public nature of the UUIDs, all infrastructure set up using iBeacons is inherently public as well. This allows for piggybacking. For example, if Apple were to set up iBeacons in all their stores, a competitor could read this information as long as they have an application installed on the mobile phone of the visiting user. Then, they could show alternative advertisements.
+
+Similarly, the UUIDs are subject to cloning. Given the public UUID, it can be copied to any \ac{BLE}-enabled device, which could transmit the same UUID, simulating an environment that is not physically present, misleading owners of passing Bluetooth enabled devices.
+
+Furthermore, the fact that a device may consistently scan for iBeacons has some privacy implications. Going back to the Apple store example, any installed application or even the running operating system could read the same data, inferring that the device is close to an Apple store, and further inferring the location of the user, geolocation profiles, daily habits, etc.
+
+Lastly, while iBeacons are standalone devices, they still have some form of configurability. This means that internal settings, for example the UUID, can be modified by an authenticated user. Depending on the implementation, this could lead to security faults. Reasons for this may be insecure connections, for example, Legacy \ac{BLE}, or higher-level problems, such as insecure authentication. If an attacker gains access to this configuration, they may be able to lock out the legitimate owner by changing the authentication or they may be able to perform a denial of service attack, making the iBeacon perform costly operations, draining the battery.

@@ -1,0 +1,78 @@
+\documentclass{uva-inf-article}
+\usepackage[english]{babel}
+\usepackage{multicol}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{tabu, multirow}
+\usepackage{float}
+\usepackage{graphicx}
+
+\usepackage{lipsum}  
+\usepackage[nolist]{acronym}
+
+% Acronyms
+\begin{acronym}[WWWWWW]
+    \acro{BLE}{Bluetooth Low Energy}
+    \acro{NFC}{Near Field Communication}
+    \acro{TK}{Temporary Key}
+    \acro{STK}{Short Term Key}
+    \acro{LTK}{Long Term Key}
+\end{acronym}
+
+% Bibliography
+\usepackage[style=numeric,backend=biber,uniquename=init,urldate=long,giveninits=true]{biblatex}
+\setlength\bibitemsep{\baselineskip/2}
+\addbibresource{bibliography.bib}
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+
+\newcommand{\twocolfigure}[3]{
+    \begin{figure*}[ht]
+        \centering
+        \includegraphics[width=.8\textwidth]{#1}
+        \caption{#2}
+        \label{#3}
+    \end{figure*}
+}
+
+\newcommand{\twocolfigureb}[3]{
+    \begin{figure*}[bp]
+        \centering
+        \includegraphics[width=.8\textwidth]{#1}
+        \caption{#2}
+        \label{#3}
+    \end{figure*}
+}
+
+\assignment{Exam Essay}
+\assignmenttype{Security History, State and Advice of Bluetooth Low Energy and iBeacons}
+\title{Security History, State and Advice of Bluetooth Low Energy and iBeacons}
+
+\authors{Sebastian Wilczek}
+\assessor{Jaap van Ginkel\\University of Amsterdam}
+\course{Advanced Security}
+\uvanetids{sebastian.wilczek@os3.nl\\UvA ID: 12837067}
+
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+%\input{sections/paper/abstract}
+%\acresetall
+\begin{multicols}{2}
+\input{sections/paper/history}
+\input{sections/paper/state}
+\input{sections/paper/advice}
+
+\end{multicols}
+
+%\newpage
+\printbibliography{}
+
+%\input{sections/paper/appendix}
+ 
+\end{document}

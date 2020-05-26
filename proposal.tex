@@ -1,0 +1,76 @@
+\documentclass{uva-inf-article}
+\usepackage[english]{babel}
+\usepackage{multicol}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{tabu, multirow}
+\usepackage{float}
+\usepackage{graphicx}
+
+\usepackage{lipsum}  
+\usepackage[nolist]{acronym}
+
+% Acronyms
+\begin{acronym}[WWWWWW]
+    \acro{ACR}{Acronym}
+\end{acronym}
+
+% Bibliography
+\usepackage[style=numeric,backend=biber,uniquename=init,urldate=long,giveninits=true]{biblatex}
+\setlength\bibitemsep{\baselineskip/2}
+\addbibresource{bibliography.bib}
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+
+\newcommand{\twocolfigure}[3]{
+    \begin{figure*}[ht]
+        \centering
+        \includegraphics[width=.8\textwidth]{#1}
+        \caption{#2}
+        \label{#3}
+    \end{figure*}
+}
+
+\newcommand{\twocolfigureb}[3]{
+    \begin{figure*}[bp]
+        \centering
+        \includegraphics[width=.8\textwidth]{#1}
+        \caption{#2}
+        \label{#3}
+    \end{figure*}
+}
+
+\assignment{Project Proposal}
+\assignmenttype{TODO Add Title}
+\title{TODO Add Title}
+
+\authors{TODO Add name; Sebastian Wilczek}
+\assessor{TODO Add assessor name\\TODO Add assessor email\\University of Amsterdam}
+\course{TODO Add Course Name}
+\uvanetids{TODO Add email\\UvA ID: TODO Add ID; sebastian.wilczek@os3.nl\\UvA ID: 12837067}
+
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\begin{multicols}{2}
+\input{sections/proposal/introduction}
+\input{sections/proposal/research_questions}
+\input{sections/proposal/related_work}
+\input{sections/proposal/scope}
+\input{sections/proposal/methodology}
+\input{sections/proposal/requirements}
+\input{sections/proposal/planning}
+\input{sections/proposal/expected_products}
+\input{sections/proposal/ethics}
+
+\end{multicols}
+
+%\newpage
+\printbibliography{}
+ 
+\end{document}
